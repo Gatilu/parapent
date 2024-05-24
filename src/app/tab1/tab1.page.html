@@ -1,17 +1,36 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Clima para Parapente
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="header-text">
+    <div class="search-bar">
+      <ion-input [(ngModel)]="searchCity" placeholder="Pesquise um local"></ion-input>
+      <ion-button (click)="searchWeather()">Buscar</ion-button>
+    </div>
+  </div>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <div *ngIf="weatherData" class="weather-container">
+    <h1>{{ weatherData.name }}</h1>
+    <h2>{{ weatherData.main.temp }}°C</h2>
+    <p>{{ weatherData.main.temp_min }}°C / {{ weatherData.main.temp_max }}°C</p>
+    <img [src]="getWeatherIcon(weatherData.weather[0].icon)" class="weather-icon">
+    <div class="weather-info">
+      <div class="weather-info-item">
+        <img src="assets/wind-icon.png" alt="Wind">
+        <p>{{ weatherData.wind.speed }} km/h</p>
+      </div>
+      <div class="weather-info-item">
+        <img src="assets/humidity-icon.png" alt="Humidity">
+        <p>{{ weatherData.main.humidity }}%</p>
+      </div>
+    </div>
+    <div class="flight-status" [ngClass]="{'good': isGoodWeatherForFlying(), 'bad': !isGoodWeatherForFlying()}">
+      {{ isGoodWeatherForFlying() ? 'Tempo bom para voo' : 'Não é bom para voo' }}
+    </div>
+  </div>
 </ion-content>
