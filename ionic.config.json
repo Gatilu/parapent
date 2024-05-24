@@ -1,0 +1,7 @@
+{
+  "name": "parapent",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
